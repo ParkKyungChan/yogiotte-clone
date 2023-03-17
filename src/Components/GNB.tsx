@@ -5,10 +5,14 @@ function GNB() {
   const [isSearchBarActive, setIsSearchBarActive] = useState(false);
   const [isInputVisible, setIsInputVisible] = useState(false);
   const handleSearchButtonClick = () => {
-    setIsSearchBarActive(isActive => !isActive);
+    setIsSearchBarActive(true);
     setTimeout(() => {
-      setIsInputVisible(isActive => !isActive);
+      setIsInputVisible(true);
     }, 500);
+  };
+  const handleCloseButtonClick = () => {
+    setIsSearchBarActive(false);
+    setIsInputVisible(false);
   };
   return (
     <GNBContainer>
@@ -16,6 +20,7 @@ function GNB() {
         <GNBLogo></GNBLogo>
         <GNBSearchButton isActive={isSearchBarActive} onClick={handleSearchButtonClick} />
         <GNBSearchInput placeholder="지역, 숙소명" isActive={isInputVisible}></GNBSearchInput>
+        <CloseButton isActive={isInputVisible} onClick={handleCloseButtonClick}></CloseButton>
         <GNBMenuLists isActive={isSearchBarActive}>
           <GNBMenu>
             <GNBMenuSpan>내주변</GNBMenuSpan>
@@ -68,11 +73,12 @@ const GNBSearchButton = styled.button<{
   border: none;
   position: absolute;
   text-indent: -9999px;
-  right: ${props => (props.isActive ? "800px" : "396px")};
+  right: ${props => (props.isActive ? "800px" : "376px")};
   background: url(//image.goodchoice.kr/images/web_v3/ico_srch_2.png) 50% 50% no-repeat;
   background-size: 24px auto;
   cursor: pointer;
   transition: all 0.3s;
+  z-index: 6;
 `;
 
 const GNBMenuLists = styled.ul<{
@@ -82,6 +88,7 @@ const GNBMenuLists = styled.ul<{
   display: ${props => (props.isActive ? "none" : "flex")};
   right: 30px;
   list-style: none;
+  z-index: 5;
 `;
 
 const GNBMenu = styled.li`
@@ -116,4 +123,18 @@ const GNBSearchInput = styled.input<{
   ::placeholder {
     color: rgba(255, 255, 255, 0.7);
   }
+`;
+
+const CloseButton = styled.button<{
+  isActive: boolean;
+}>`
+  width: 35px;
+  height: 35px;
+  background: url("//image.goodchoice.kr/images/web_v3/ico_close_2.png") 50% 50% no-repeat;
+  background-size: 24px auto;
+  border: none;
+  position: absolute;
+  right: 50px;
+  display: ${props => (props.isActive ? "block " : "none")};
+  cursor: pointer;
 `;
