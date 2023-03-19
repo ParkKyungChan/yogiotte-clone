@@ -1,12 +1,14 @@
 import React from "react";
 import styled from "styled-components";
 import MainLink from "../Components/MainLink";
+import NewsSection from "../Components/NewsSection";
 
 function MainPage() {
   return (
     <MainContainer>
       <MainBanner></MainBanner>
-      <MainLink></MainLink>
+      <MainLink />
+      <NewsSection />
     </MainContainer>
   );
 }
